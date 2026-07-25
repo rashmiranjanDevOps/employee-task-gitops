@@ -29,6 +29,8 @@ backend:
     DB_POOL_MIN: "1"
     JWT_EXPIRES_IN: "8h"
     JWT_REFRESH_EXPIRES_IN: "7d"
+  image:
+    tag: dev-24b8c57-60
 frontend:
   replicaCount: 1
   resources:
@@ -38,6 +40,8 @@ frontend:
     limits:
       cpu: 200m
       memory: 128Mi
+  image:
+    tag: dev-24b8c57-60
 ingress:
   hosts:
     frontend: dev-app.rashmidevops.xyz
