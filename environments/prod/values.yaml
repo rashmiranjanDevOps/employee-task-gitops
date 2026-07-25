@@ -1,3 +1,66 @@
+# # Prod-specific values, layered onto the Helm chart's defaults (the chart
+# # itself — and its values.yaml defaults — live in employee-task-app's
+# # helm/employee-task/, not in this repo; see apps/prod-application.yaml for
+# # how ArgoCD combines the two).
+
+# # Two fields marked "set once during setup" below are written automatically
+# # by employee-task-infra/scripts/sync-config.sh right after `terraform
+# # apply` in terraform/global — see that repo's README.
+
+# image:
+# <<<<<<< HEAD
+#   registry: "" # set once during setup — terraform output ecr_repository_urls, minus the repo name
+# =======
+#   registry: "897074277336.dkr.ecr.us-east-1.amazonaws.com" # set once during setup — terraform output ecr_repository_urls, minus the repo name
+# >>>>>>> 3bb486d (chore: sync registry + cert ARN from terraform/global outputs)
+# backend:
+#   replicaCount: 2
+#   resources:
+#     requests:
+#       cpu: 200m
+#       memory: 384Mi
+#     limits:
+#       cpu: 750m
+#       memory: 768Mi
+#   hpa:
+#     enabled: true
+#     minReplicas: 2
+#     maxReplicas: 6
+#     cpuUtilization: 65
+#   env:
+#     NODE_ENV: production
+#     LOG_LEVEL: info
+#     RATE_LIMIT_MAX: "200"
+#     DB_POOL_MAX: "20"
+#     DB_POOL_MIN: "5"
+#     JWT_EXPIRES_IN: "8h"
+#     JWT_REFRESH_EXPIRES_IN: "7d"
+# <<<<<<< HEAD
+#   image:
+#     tag: prod-24b8c57-59
+# =======
+# >>>>>>> 3bb486d (chore: sync registry + cert ARN from terraform/global outputs)
+# frontend:
+#   replicaCount: 2
+#   resources:
+#     requests:
+#       cpu: 50m
+#       memory: 64Mi
+#     limits:
+#       cpu: 200m
+#       memory: 128Mi
+# <<<<<<< HEAD
+#   image:
+#     tag: prod-24b8c57-59
+# =======
+# >>>>>>> 3bb486d (chore: sync registry + cert ARN from terraform/global outputs)
+# ingress:
+#   hosts:
+#     frontend: app.rashmidevops.xyz
+#     backend: api.rashmidevops.xyz
+#   tls:
+#     certificateArn: "arn:aws:acm:us-east-1:897074277336:certificate/6d81c644-658f-4f44-98d7-8b3f3b7d6475" # set once during setup — terraform output acm_certificate_arn
+
 # Prod-specific values, layered onto the Helm chart's defaults (the chart
 # itself — and its values.yaml defaults — live in employee-task-app's
 # helm/employee-task/, not in this repo; see apps/prod-application.yaml for
@@ -8,7 +71,7 @@
 # apply` in terraform/global — see that repo's README.
 
 image:
-  registry: "" # set once during setup — terraform output ecr_repository_urls, minus the repo name
+  registry: "897074277336.dkr.ecr.us-east-1.amazonaws.com" # set once during setup — terraform output ecr_repository_urls, minus the repo name
 backend:
   replicaCount: 2
   resources:
@@ -49,4 +112,4 @@ ingress:
     frontend: app.rashmidevops.xyz
     backend: api.rashmidevops.xyz
   tls:
-    certificateArn: "" # set once during setup — terraform output acm_certificate_arn
+    certificateArn: "arn:aws:acm:us-east-1:897074277336:certificate/6d81c644-658f-4f44-98d7-8b3f3b7d6475" # set once during setup — terraform output acm_certificate_arn

@@ -9,8 +9,7 @@
 # apply` in terraform/global — see that repo's README.
 
 image:
-  registry: "" # set once during setup — terraform output ecr_repository_urls, minus the repo name
-
+  registry: "897074277336.dkr.ecr.us-east-1.amazonaws.com" # set once during setup — terraform output ecr_repository_urls, minus the repo name
 backend:
   replicaCount: 1
   resources:
@@ -30,7 +29,6 @@ backend:
     DB_POOL_MIN: "1"
     JWT_EXPIRES_IN: "8h"
     JWT_REFRESH_EXPIRES_IN: "7d"
-
 frontend:
   replicaCount: 1
   resources:
@@ -40,10 +38,9 @@ frontend:
     limits:
       cpu: 200m
       memory: 128Mi
-
 ingress:
   hosts:
     frontend: dev-app.rashmidevops.xyz
     backend: dev-api.rashmidevops.xyz
   tls:
-    certificateArn: "" # set once during setup — terraform output acm_certificate_arn
+    certificateArn: "arn:aws:acm:us-east-1:897074277336:certificate/6d81c644-658f-4f44-98d7-8b3f3b7d6475" # set once during setup — terraform output acm_certificate_arn
