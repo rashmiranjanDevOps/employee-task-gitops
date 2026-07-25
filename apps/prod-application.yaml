@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: employee-task-prod
+  namespace: argocd
+  labels:
+    environment: prod
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/rashmiranjandevops/employee-task-app.git
+      targetRevision: main
+      path: helm/employee-task
+      helm:
+        valueFiles:
+          - $values/environments/prod/values.yaml
+    - repoURL: https://github.com/rashmiranjandevops/employee-task-gitops.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: employee-task-prod
+  # Deliberately no `automated` block — same manual promotion gate as
+  # before: CI updates this environment's image tag in Git on every merge
+  # to main, but ArgoCD only shows prod as OutOfSync until someone runs
+  # `argocd app sync employee-task-prod` on purpose.
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false # Terraform creates the namespace

@@ -1,0 +1,7 @@
+# Helm dependency artifacts (rebuilt via `helm dependency build`)
+environments/*/charts/
+environments/*/Chart.lock
+
+.DS_Store
+.vscode/
+.idea/

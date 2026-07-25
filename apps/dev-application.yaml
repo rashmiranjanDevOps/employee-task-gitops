@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: employee-task-dev
+  namespace: argocd
+  labels:
+    environment: dev
+spec:
+  project: default
+  # Two sources: the Helm CHART lives in employee-task-app (see that repo's
+  # helm/employee-task/), the VALUES live in this repo. ArgoCD's
+  # multi-source Application feature is what lets one Application combine
+  # both — the $values reference below points the chart source at the
+  # values file living in the second source. This is a direct, mechanical
+  # consequence of splitting "the chart" and "the values" across two
+  # repos (see ARCHITECTURE.md) — it looks like more machinery than a
+  # single-source Application, but it's the same GitOps idea, just wired
+  # across a repo boundary.
+  sources:
+    - repoURL: https://github.com/rashmiranjandevops/employee-task-app.git
+      targetRevision: main
+      path: helm/employee-task
+      helm:
+        valueFiles:
+          - $values/environments/dev/values.yaml
+    - repoURL: https://github.com/rashmiranjandevops/employee-task-gitops.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: employee-task-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false # Terraform creates the namespace
