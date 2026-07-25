@@ -30,7 +30,7 @@ backend:
     JWT_EXPIRES_IN: "8h"
     JWT_REFRESH_EXPIRES_IN: "7d"
   image:
-    tag: dev-eb350c5-61
+    tag: dev-1bab552-62
 frontend:
   replicaCount: 1
   resources:
@@ -41,7 +41,7 @@ frontend:
       cpu: 200m
       memory: 128Mi
   image:
-    tag: dev-eb350c5-61
+    tag: dev-1bab552-62
 ingress:
   hosts:
     frontend: dev-app.rashmidevops.xyz
