@@ -9,7 +9,6 @@
 
 image:
   registry: "" # set once during setup — terraform output ecr_repository_urls, minus the repo name
-
 backend:
   replicaCount: 2
   resources:
@@ -32,7 +31,8 @@ backend:
     DB_POOL_MIN: "5"
     JWT_EXPIRES_IN: "8h"
     JWT_REFRESH_EXPIRES_IN: "7d"
-
+  image:
+    tag: prod-24b8c57-59
 frontend:
   replicaCount: 2
   resources:
@@ -42,7 +42,8 @@ frontend:
     limits:
       cpu: 200m
       memory: 128Mi
-
+  image:
+    tag: prod-24b8c57-59
 ingress:
   hosts:
     frontend: app.rashmidevops.xyz
