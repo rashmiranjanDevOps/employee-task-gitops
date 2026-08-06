@@ -40,4 +40,4 @@ ingress:
     frontend: app.rashmidevops.xyz
     backend: api.rashmidevops.xyz
   tls:
-    certificateArn: "arn:aws:acm:us-east-1:897074277336:certificate/9b55ae9e-e4f4-491a-aed6-5410f084b9d3" # set once during setup — terraform output acm_certificate_arn
+    certificateArn: "arn:aws:acm:us-east-1:897074277336:certificate/97e1117d-712e-4a6e-929e-48a42838fdd9" # set once during setup — terraform output acm_certificate_arn
